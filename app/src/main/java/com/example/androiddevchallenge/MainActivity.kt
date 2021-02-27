@@ -18,36 +18,41 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.androiddevchallenge.ui.theme.MyTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.androiddevchallenge.screen.HomeScreen
+import com.example.androiddevchallenge.screen.PuppyDetailScreen
+import com.example.androiddevchallenge.ui.theme.AdopyTheme
+import dev.chrisbanes.accompanist.insets.ProvideWindowInsets
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MyTheme {
-                MyApp()
-            }
-        }
+        setContent { MyApp() }
     }
 }
 
 // Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    val navController = rememberNavController()
+    return AdopyTheme {
+        ProvideWindowInsets {
+            NavHost(navController, startDestination = Route.HOME) {
+                composable(Route.HOME) { HomeScreen(navController) }
+                composable(Route.LIST) { PuppyDetailScreen(navController) }
+            }
+        }
     }
 }
 
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun LightPreview() {
-    MyTheme {
+    AdopyTheme {
         MyApp()
     }
 }
@@ -55,7 +60,7 @@ fun LightPreview() {
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
 fun DarkPreview() {
-    MyTheme(darkTheme = true) {
+    AdopyTheme(darkTheme = true) {
         MyApp()
     }
 }

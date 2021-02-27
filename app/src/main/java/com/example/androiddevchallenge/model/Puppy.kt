@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 The Android Open Source Project
+ * Copyright 2021 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.androiddevchallenge.ui.theme
+package com.example.androiddevchallenge.model
 
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Shapes
-import androidx.compose.ui.unit.dp
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
-val Shapes = Shapes(
-    small = RoundedCornerShape(percent = 50),
-    medium = RoundedCornerShape(20.dp),
-    large = RoundedCornerShape(0.dp)
-)
+enum class Sex { MALE, FEMALE }
+enum class Breed {
+    GERMAN_SHEPHERD,
+    GOLDEN_RETRIEVER,
+    BULLDOG,
+    POODLE,
+    BEAGLE,
+    ROTTWEILER
+}
+
+@Parcelize
+data class Puppy(
+    val id: Int,
+    val price: Long,
+    val name: String,
+    val description: String,
+    val imageUrl: String,
+    val ageInMonths: Int,
+    val sex: Sex,
+    val breed: Breed,
+) : Parcelable
